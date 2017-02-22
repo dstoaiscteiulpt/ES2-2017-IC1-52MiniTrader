@@ -19,7 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Test Class for MicroServer
  *
  */
-
+//nao sei porque mas isto esta a dar erros e estou a entrar em panico 
 @RunWith(MockitoJUnitRunner.class)
 public class MicroServerTest {
 	
