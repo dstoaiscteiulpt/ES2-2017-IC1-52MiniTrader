@@ -1,5 +1,5 @@
 package mt.client.impl;
-//Comentario Novo
+//Comentario
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
