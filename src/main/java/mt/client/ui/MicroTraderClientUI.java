@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -51,6 +54,9 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         exit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        JMenu jMenu3 = new javax.swing.JMenu();
+        JMenuItem jMenuItem3 = new javax.swing.JMenuItem();
+        
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(screenTitle + " | (Disconnected)");
@@ -130,9 +136,13 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem2);
+        
+        jMenu3.setText("Save");
+        
+        
 
         menuBar.add(jMenu2);
-
+        menuBar.add(jMenu3);
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
