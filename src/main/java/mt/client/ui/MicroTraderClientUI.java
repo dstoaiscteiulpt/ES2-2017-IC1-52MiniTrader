@@ -133,9 +133,10 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem2);
+	   jMenu3.setText("Save");
 
         menuBar.add(jMenu2);
-
+	      menuBar.add(jMenu3);
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
