@@ -54,8 +54,7 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         exit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        JMenu jMenu3 = new javax.swing.JMenu();
-        JMenuItem jMenuItem3 = new javax.swing.JMenuItem();
+      
         
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -135,14 +134,10 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
+        
         jMenu2.add(jMenuItem2);
-        
-        jMenu3.setText("Save");
-        
-        
-
         menuBar.add(jMenu2);
-        menuBar.add(jMenu3);
+        
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,6 +164,7 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
 
         setBounds(0, 0, 640, 502);
     }                        
+
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {                                        
         if (!controller.isConnected()) {
