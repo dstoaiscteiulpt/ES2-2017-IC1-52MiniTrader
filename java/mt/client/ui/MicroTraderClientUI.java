@@ -3,6 +3,8 @@ package mt.client.ui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,8 +56,7 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         exit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-		JMenu jMenu3 = new javax.swing.JMenu();
-        JMenuItem jMenuItem3 = new javax.swing.JMenuItem();
+		
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(screenTitle + " | (Disconnected)");
@@ -135,10 +136,10 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem2);
-	   jMenu3.setText("Save");
+	  
 
         menuBar.add(jMenu2);
-	      menuBar.add(jMenu3);
+	    
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,9 +165,47 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         );
 
         setBounds(0, 0, 640, 502);
+   
+        unfulfilledOrdersScrollPane.addMouseMotionListener(new MouseMotionAdapter() {
+ 
+        	
+			@Override
+			// When user move the mouse, the list of pendent orders is updated
+			public void mouseMoved(MouseEvent arg0) {
+				if(!Session.orders.isEmpty()){
+				System.out.println("Unfulfilled Orders with identification:" + Session.orders.toString());
+			//	System.out.println("Unfulfilled Orders without identification:" + Session.orders.toString2());
+				}
+				}
+				
+			
+		});
+        
+        
+        myOrdersScrollPane.addMouseMotionListener(new MouseMotionAdapter() {
+        	 
+        	
+        				@Override
+        				// When user move the mouse, the list of pendent orders is updated
+        				public void mouseMoved(MouseEvent arg0) {
+        					if(!Session.orders.isEmpty()){
+        					   System.out.println(Session.history.toString());
+        					}
+        				}
+        				
+        			});
+        
     }                        
 
-    private void connectActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    
+    public void saveToXML(String xml){
+    	
+    	
+    	
+    }
+    
+    
+    private void connectActionPerformed(java.awt.event.ActionEvent evta) {                                        
         if (!controller.isConnected()) {
             ConnectForm form = new ConnectForm(this, true);
             form.setLocationRelativeTo(this);
@@ -208,6 +247,9 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         }
     }                                    
 
+    
+    
+    
     private void placeOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if (controller.isConnected()) {
             PlaceOrderForm form = new PlaceOrderForm(this, true);
@@ -243,6 +285,8 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         }
     }                                          
 
+    
+    
     private javax.swing.JMenuItem connect;
     private javax.swing.JMenuItem disconnect;
     private javax.swing.JMenuItem exit;

@@ -122,6 +122,7 @@ public class Order implements Serializable {
 	public String toString() {
 		return (isSellOrder() ? "sell" : "buy") + " " + stock + ", " + numberOfUnits + " units at " + pricePerUnit + " EUR/unit (nickname: " + nickname + ", serverID: " + serverOrderID + ")"; 
 	}
+
 	
 	/**
 	 * In order to make tests we had to override this method.
