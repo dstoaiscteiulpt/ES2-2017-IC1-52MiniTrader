@@ -1,9 +1,11 @@
 package mt.client.ui;
 
 import java.awt.Component;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,10 +15,13 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import mt.client.controller.Controller;
+import mt.Order;
 import mt.client.Session;
 import mt.client.exception.AuthenticationException;
 import mt.client.exception.ConnectionClosedException;
-
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 /**
  * Main screen of the Micro Trader.
  *
@@ -32,7 +37,6 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
     public boolean teste = false;
     
     public MicroTraderClientUI() {
-    	
         initComponents();
     }
     
@@ -56,7 +60,8 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         exit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        
+		
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(screenTitle + " | (Disconnected)");
         setResizable(false);
@@ -134,10 +139,11 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        
         jMenu2.add(jMenuItem2);
+	  
+
         menuBar.add(jMenu2);
-        
+	    
         setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,11 +169,61 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         );
 
         setBounds(0, 0, 640, 502);
+   
+        unfulfilledOrdersScrollPane.addMouseMotionListener(new MouseMotionAdapter() {
+ 
+        	
+			@Override
+			// When user move the mouse, the list of pendent orders is save in a XML file
+			public void mouseMoved(MouseEvent arg0) {
+				if(!Session.orders.isEmpty()){
 
+ 					   for(int i = 0; i < Session.orders.size(); i++){
+ 						   saveToXML(Session.orders.get(i));
+ 					   
+ 					}
+				}
+			}
+			
+		});
+        
+        myOrdersScrollPane.addMouseMotionListener(new MouseMotionAdapter() {
+        	 
+        				@Override
+        				// When user move the mouse, the list of orders is save in a XML file
+        				public void mouseMoved(MouseEvent arg0) {
+        					if(!Session.history.isEmpty()){
+        					   for(int i = 0; i < Session.history.size(); i++){
+        						   saveToXML(Session.history.get(i));
+        					   }
+        					}
+        				}
+        				
+        			});
+        
     }                        
 
+    public void saveToXML(Order order){
+    	
+    	try {
 
-    private void connectActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    		File file = new File("C:/Users/adminusrlocal/Desktop/file.xml");
+    		JAXBContext jaxbContext = JAXBContext.newInstance(Order.class);
+    		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+    		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+    		jaxbMarshaller.marshal(order, file);
+    		jaxbMarshaller.marshal(order, System.out);
+
+    	      } catch (JAXBException e) {
+    		e.printStackTrace();
+    	      }
+
+    	}
+    	
+
+    private void connectActionPerformed(java.awt.event.ActionEvent evta) {                                        
         if (!controller.isConnected()) {
             ConnectForm form = new ConnectForm(this, true);
             form.setLocationRelativeTo(this);
@@ -209,6 +265,9 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         }
     }                                    
 
+    
+    
+    
     private void placeOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {                                              
         if (controller.isConnected()) {
             PlaceOrderForm form = new PlaceOrderForm(this, true);
@@ -244,6 +303,8 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
         }
     }                                          
 
+    
+    
     private javax.swing.JMenuItem connect;
     private javax.swing.JMenuItem disconnect;
     private javax.swing.JMenuItem exit;

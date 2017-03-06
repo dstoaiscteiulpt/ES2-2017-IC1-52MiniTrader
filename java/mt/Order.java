@@ -1,6 +1,9 @@
 package mt;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * An order can either be a buy order or a sell order of a certain number of units, of a certain stock at a certain price. 
@@ -122,6 +125,7 @@ public class Order implements Serializable {
 	public String toString() {
 		return (isSellOrder() ? "sell" : "buy") + " " + stock + ", " + numberOfUnits + " units at " + pricePerUnit + " EUR/unit (nickname: " + nickname + ", serverID: " + serverOrderID + ")"; 
 	}
+
 	
 	/**
 	 * In order to make tests we had to override this method.
