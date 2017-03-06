@@ -22,6 +22,7 @@ import mt.client.exception.ConnectionClosedException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.transform.Result;
 /**
  * Main screen of the Micro Trader.
  *
@@ -179,7 +180,7 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
 				if(!Session.orders.isEmpty()){
 
  					   for(int i = 0; i < Session.orders.size(); i++){
- 						   saveToXML(Session.orders.get(i));
+ 						  saveToXML(Session.orders.get(i));
  					   
  					}
 				}
@@ -187,42 +188,40 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
 			
 		});
         
-        myOrdersScrollPane.addMouseMotionListener(new MouseMotionAdapter() {
+        /*myOrdersScrollPane.addMouseMotionListener(new MouseMotionAdapter() {
         	 
         				@Override
         				// When user move the mouse, the list of orders is save in a XML file
         				public void mouseMoved(MouseEvent arg0) {
         					if(!Session.history.isEmpty()){
         					   for(int i = 0; i < Session.history.size(); i++){
-        						   saveToXML(Session.history.get(i));
+        						   saveToXML(String.valueOf(Session.history.get(i)));
+        						 
         					   }
         					}
         				}
-        				
-        			});
+        			
+        			});*/
         
     }                        
 
     public void saveToXML(Order order){
-    	
+    	String o = String.valueOf(order);
     	try {
-
-    		File file = new File("C:/Users/Mar/Desktop/file.xml");
-    		JAXBContext jaxbContext = JAXBContext.newInstance(Order.class);
+    		JAXBContext jaxbContext = JAXBContext.newInstance(o);
+    		System.out.println("A");
     		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
+    		System.out.println("B");
     		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-    		jaxbMarshaller.marshal(order, file);
-    		jaxbMarshaller.marshal(order, System.out);
-
+    		System.out.println("C");
+    		jaxbMarshaller.marshal(order, (Result) System.in);
+    		System.out.println("B");
+    		jaxbMarshaller.marshal(order, new File("C:/Users/adminusrlocal/Desktop/file.xml"));
     	      } catch (JAXBException e) {
     		e.printStackTrace();
     	      }
-
     	}
     	
-
     private void connectActionPerformed(java.awt.event.ActionEvent evta) {                                        
         if (!controller.isConnected()) {
             ConnectForm form = new ConnectForm(this, true);
@@ -351,5 +350,4 @@ public class MicroTraderClientUI extends javax.swing.JFrame {
             object.notify();
         }
     }
-    
 }
